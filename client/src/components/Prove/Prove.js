@@ -56,6 +56,9 @@ export default function Prove() {
 			.call()
 			.then((res) => {
 				console.log('blockchain:', res);
+				if (res) {
+					console.log('Uspesna verifikacija');
+				}
 			})
 			.catch((err) => console.log(err));
 	};

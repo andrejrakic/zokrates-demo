@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
 	serverUri,
-	web3,
 	VerifierContract,
 	testWeb3Connection,
 } from '../../config/index';

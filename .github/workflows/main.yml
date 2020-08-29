@@ -16,6 +16,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
+      
+      - name: Clean Install of Server
+        run: npm ci
+        working-directory: ./server
 
       - name: Install 🔩
         run: yarn install

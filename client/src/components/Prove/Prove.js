@@ -1,40 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Web3 from 'web3';
-import verifier_abi from '../../contracts/verifier.sol.json';
+import {
+	serverUri,
+	web3,
+	VerifierContract,
+	testWeb3Connection,
+} from '../../config/index';
 import './Prove.css';
 import { Button, Form, Row, Col, Spinner } from 'react-bootstrap';
 
 export default function Prove() {
-	const serverUri = `http://localhost:5000/verify`;
-
-	const web3 = new Web3(
-		new Web3.providers.WebsocketProvider(
-			`wss://rinkeby.infura.io/ws/v3/fcba35ab93d548cba21391640fcb4c2b`
-		)
-	);
-
-	const VerifierContract = new web3.eth.Contract(
-		verifier_abi,
-		`0x600c3dC2568d97D85082bE1110f7a9dC52C2123C`
-	);
-
 	const [firstNumber, setFirstNumber] = useState('');
 	const [secondNumber, setSecondNumber] = useState('');
 	const [sum, setSum] = useState('7');
 
 	useEffect(() => testWeb3Connection());
 
-	let testWeb3Connection = () => {
-		web3.eth.net
-			.isListening()
-			.then(() => console.log(`Web3 is connected`))
-			.catch((err) => console.log(`Error: ${err}`));
-	};
-
 	let compute = () => {
 		axios
-			.post(serverUri, {
+			.post(`${serverUri}/verify`, {
 				firstNumber: firstNumber,
 				secondNumber: secondNumber,
 				sum: sum,

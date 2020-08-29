@@ -1,3 +1,3 @@
 # zokrates demo
 
-![CI](https://github.com/andrejrakic/zokrates-demo/workflows/CI/badge.svg?branch=master)
+![CI/CD](https://github.com/andrejrakic/zokrates-demo/workflows/CI/CD/badge.svg?branch=master)

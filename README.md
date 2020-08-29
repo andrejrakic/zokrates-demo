@@ -5,10 +5,10 @@
 ## Running
 
 
-``` cd server && npm start ```
+``` cd ./server && npm start ```
 
 
-``` cd client && yarn start ```
+``` cd ./client && yarn start ```
 
 ## About the app
 

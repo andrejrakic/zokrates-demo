@@ -1,5 +1,5 @@
 import Web3 from 'web3';
-import verifier_abi from '../contracts/verifier.sol.json';
+import verifier_abi from '../contracts/verifierABI.sol.json';
 
 export const serverUri = `http://localhost:5000`;
 

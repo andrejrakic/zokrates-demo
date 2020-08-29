@@ -1,1 +1,1 @@
-# zokrates-demo
+# zokrates demo

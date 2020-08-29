@@ -4,7 +4,7 @@ require('dotenv').config();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const { initialize } = require('zokrates-js/node');
-const { sourceCode } = require('./main.zoc.js');
+const { sourceCode } = require('./main.zok.js');
 const port = process.env.PORT || 5000;
 
 app.use(bodyParser.json({ limit: '10mb' }));

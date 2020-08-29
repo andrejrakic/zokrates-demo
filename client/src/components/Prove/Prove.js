@@ -5,15 +5,17 @@ import {
 	VerifierContract,
 	testWeb3Connection,
 } from '../../config/index';
-import './Prove.css';
+import Checksign from '../Checksign/Checksign';
 import { Button, Form, Row, Col, Spinner } from 'react-bootstrap';
 
 export default function Prove() {
 	const [firstNumber, setFirstNumber] = useState('');
 	const [secondNumber, setSecondNumber] = useState('');
 	const [sum, setSum] = useState('7');
+	const [isProved, setIsProved] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 
-	useEffect(() => testWeb3Connection());
+	useEffect(() => testWeb3Connection(), []);
 
 	let compute = () => {
 		axios
@@ -26,9 +28,6 @@ export default function Prove() {
 	};
 
 	let verify = (proofObject, output) => {
-		console.log(proofObject.proof);
-		console.log(output);
-		output.includes('1') ? console.log('jesu isti') : console.log('nisu isti');
 		VerifierContract.methods
 			.verifyTx(
 				proofObject.proof.a,
@@ -38,18 +37,37 @@ export default function Prove() {
 			)
 			.call()
 			.then((res) => {
-				console.log('blockchain:', res);
 				if (res) {
-					console.log('Uspesna verifikacija');
+					setIsLoading(false);
+					output.includes('1') ? setIsProved(true) : setIsProved(false);
+				} else {
+					setIsLoading(false);
+					setIsProved(false);
 				}
 			})
 			.catch((err) => console.log(err));
 	};
 
+	let isValidInput = () => {
+		if (!firstNumber || !secondNumber || !sum) return false;
+		if (isNaN(firstNumber) || isNaN(secondNumber) || isNaN(sum)) return false;
+		return true;
+	};
+
+	let onCompute = () => {
+		if (!isValidInput()) {
+			alert('Error: Invalid data entered');
+			return;
+		}
+		setIsLoading(true);
+		setIsProved(null);
+		compute();
+	};
+
 	return (
 		<div className='container' style={{ paddingTop: 50 }}>
 			<Form>
-				<h1>ZkProve app</h1>
+				<h1>ZkProve</h1>
 				<Form.Group>
 					<Row>
 						<Col>
@@ -78,29 +96,25 @@ export default function Prove() {
 					/>
 				</Form.Group>
 				<Form.Group>
-					<Button variant='primary' size='lg' onClick={() => compute()}>
-						<Spinner
-							as='span'
-							animation='border'
-							size='sm'
-							role='status'
-							aria-hidden='true'
-						/>
+					<Button
+						onClick={() => onCompute()}
+						variant='primary'
+						size='lg'
+						disabled={isLoading}>
+						{!!isLoading && (
+							<Spinner
+								as='span'
+								animation='border'
+								size='sm'
+								role='status'
+								aria-hidden='true'
+							/>
+						)}
 						Verify
 					</Button>
 				</Form.Group>
 			</Form>
-			<svg
-				class='checkmark'
-				xmlns='http://www.w3.org/2000/svg'
-				viewBox='0 0 52 52'>
-				<circle class='checkmark__circle' cx='26' cy='26' r='25' fill='none' />
-				<path
-					class='checkmark__check'
-					fill='none'
-					d='M14.1 27.2l7.1 7.2 16.7-16.8'
-				/>
-			</svg>
+			<Checksign isProved={isProved} />
 		</div>
 	);
 }

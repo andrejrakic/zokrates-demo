@@ -24,7 +24,8 @@ export default function Prove() {
 				secondNumber: secondNumber,
 				sum: sum,
 			})
-			.then((res) => verify(res.data.proof, res.data.output));
+			.then((res) => verify(res.data.proof, res.data.output))
+			.catch((err) => alert(err));
 	};
 
 	let verify = (proofObject, output) => {
@@ -45,7 +46,7 @@ export default function Prove() {
 					setIsProved(false);
 				}
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => alert(err));
 	};
 
 	let isValidInput = () => {
@@ -64,6 +65,10 @@ export default function Prove() {
 		compute();
 	};
 
+	let onPressEnter = (event) => {
+		if (event.key === 'Enter') onCompute();
+	};
+
 	return (
 		<div className='container' style={{ paddingTop: 50 }}>
 			<Form>
@@ -75,7 +80,8 @@ export default function Prove() {
 								placeholder='First number'
 								type='password'
 								value={firstNumber}
-								onChange={(e) => setFirstNumber(e.target.value)}
+								onChange={(event) => setFirstNumber(event.target.value)}
+								onKeyDown={(event) => onPressEnter(event)}
 							/>
 						</Col>
 						<Col>
@@ -83,7 +89,8 @@ export default function Prove() {
 								placeholder='Second number'
 								type='password'
 								value={secondNumber}
-								onChange={(e) => setSecondNumber(e.target.value)}
+								onChange={(event) => setSecondNumber(event.target.value)}
+								onKeyDown={(event) => onPressEnter(event)}
 							/>
 						</Col>
 					</Row>
@@ -92,7 +99,8 @@ export default function Prove() {
 					<Form.Control
 						type='text'
 						value={sum}
-						onChange={(e) => setSum(e.target.value)}
+						onChange={(event) => setSum(event.target.value)}
+						onKeyDown={(event) => onPressEnter(event)}
 					/>
 				</Form.Group>
 				<Form.Group>

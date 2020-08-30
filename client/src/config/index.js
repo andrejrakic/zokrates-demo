@@ -21,5 +21,5 @@ export const testWeb3Connection = () => {
 	web3.eth.net
 		.isListening()
 		.then(() => console.log(`Web3 is connected`))
-		.catch((err) => console.log(`Error: ${err}`));
+		.catch((err) => alert(`Web3 Error: ${err}`));
 };

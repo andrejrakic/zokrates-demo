@@ -1,8 +1,10 @@
-# zokrates demo
+# Zokrates demo app
 
 ![CI/CD](https://github.com/andrejrakic/zokrates-demo/workflows/CI/CD/badge.svg?branch=master)
 
 ## Running
+
+_make sure to install necessary dependencies_ 
 
 
 ``` cd ./server && npm start ```

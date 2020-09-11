@@ -1,6 +1,7 @@
 # Zokrates demo app
 
 ![CI/CD](https://github.com/andrejrakic/zokrates-demo/workflows/CI/CD/badge.svg?branch=master)
+![CodeQL](https://github.com/andrejrakic/zokrates-demo/workflows/CodeQL/badge.svg?branch=master)
 
 ## Running
 
